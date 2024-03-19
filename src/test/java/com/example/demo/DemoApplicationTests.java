@@ -10,9 +10,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
@@ -53,6 +56,47 @@ class DemoApplicationTests {
                 .thenReturn(Stream.of(new User("376", "Danile", 31, "USA", "a")).collect(Collectors.toList()));
         assertEquals(1, service.getUserByUsername(username).size());
     }
+
+    @Test
+    public void getUserByUserId() {
+        String userId = "a";
+        when(repository.getUsersByUsername(userId))
+                .thenReturn(Stream.of(new User("376", "Danile", 31, "USA", "a")).collect(Collectors.toList()));
+        assertEquals(1, service.getUserByUsername(userId).size());
+    }
+
+
+    @Test
+    public void getUsersByYearsTest() {
+        // Mock user data
+
+        int years = 12;
+        List<User> expectedUserList = new ArrayList<>(); // Replace years with desired value
+
+        // Mock repository behavior
+        when(repository.findByYears(years)).thenReturn(expectedUserList);
+
+        // Call the method under test
+        List<User> actualUserList = service.getUserByYears(years);
+
+        // Verify results
+        assertThat(actualUserList).isNotNull();
+        assertThat(actualUserList).isEqualTo(expectedUserList);
+
+    }
+
+
+
+    @Test
+    public void deleteUserTest() throws Exception {
+
+        String userId = "some-user-id";
+        String result = service.deleteUser(userId);
+
+        assertThat(result).isNotNull();
+    }
+
+
 
 
 
