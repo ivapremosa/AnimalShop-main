@@ -18,22 +18,31 @@ public class UserService {
 
     public User addUser(User user){
         user.setUserId(UUID.randomUUID().toString().split("-")[0]);
+        System.out.println("New user added successfully");
+        //System.out.println(repository.findById(user.getUserId()).get());
         return repository.save(user);
     }
 
     public List<User> findAllUsers(){
-        return repository.findAll();
+        List<User> users = repository.findAll();
+        System.out.println("Getting all users from DB : " + users);
+        return users;
     }
 
     public User getUserByUserId(String userId){
+        System.out.println("User by userId: " + userId + " found");
+        System.out.println(repository.findById(userId).get());
         return repository.findById(userId).get();
     }
 
     public List<User> getUserByYears(int years){
+        System.out.println("User by years: " + years + " found");
         return repository.findByYears(years);
     }
 
     public List<User> getUserByUsername(String username){
+        System.out.println("User by username: " + username + " found");
+        System.out.println(repository.getUsersByUsername(username));
         return repository.getUsersByUsername(username);
     }
 
@@ -46,13 +55,15 @@ public class UserService {
         existingUser.setPassword(userRequest.getPassword());
         existingUser.setUsername(userRequest.getUsername());
         existingUser.setYears(userRequest.getYears());
-
+        System.out.println("User: " + existingUser + " updated");
+        System.out.println(repository.findById(userRequest.getUserId()).get());
         return repository.save(existingUser);
     }
 
     public String deleteUser(String userId){
         repository.deleteById(userId);
-        return userId+" deleted";
+        System.out.println("User with userId " + userId + " deleted");
+        return "User with userId: " +userId+" deleted";
     }
 
 
