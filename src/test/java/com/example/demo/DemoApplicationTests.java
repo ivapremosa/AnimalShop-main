@@ -123,7 +123,7 @@ class DemoApplicationTests {
         String userId = "some-user-id";
         String result = service.deleteUser(userId);
 
-        assertThat(result).isNotNull();
+        assertThat(result).isNotNull(); //a
     }
 
 
@@ -135,7 +135,7 @@ class DemoApplicationTests {
         assertThat(user.getPassword()).isEqualTo("Electronics");
         assertThat(user.getUsername()).isEqualTo("IPhone12");
         assertThat(user.getBio()).isEqualTo("aaa0");
-        assertThat(user.getYears()).isEqualTo(1);
+        assertThat(user.getYears()).isEqualTo(1); //aaa
     }
 
 
