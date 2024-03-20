@@ -1,10 +1,7 @@
-FROM openjdk:17-jdk-slim
+FROM maven:3.8.5-openjdk-17
 
-WORKDIR /app
-
-COPY pom.xml .
+WORKDIR /AnimalShop-main2
+COPY . .
 RUN mvn clean install
 
-COPY target/my-service-*.jar .
-
-CMD ["java", "-jar", "my-service-*.jar"]
+CMD mvn spring-boot:run
